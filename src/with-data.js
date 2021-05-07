@@ -1,30 +1,35 @@
 import React from 'react';
-const withData = (component, dataSource) => {
-    class WithData extends React.Component {
-        constructor(props){
-            super(props);
-            this.state ={
-                posts:[]
-            };
-        }
 
-        componentDidMount(){
-            
-            fetch(dataSource)
-            .then(response => response.json())
-            .then(data => this.setState({posts:data.slice(0,5)}))
-        }
+const withData = WrappedComponent => {
+  class WithData extends React.Component {
+    constructor(props) {
+      super(props);
 
-        render()
-        {
-
-            return
-                <WrappedComponent data={this.state.data} {...this.props}/>;
-        }
-    
+      this.state = {
+        data: []
+      };
     }
-    return WithData;
-}
 
+    componentDidMount() {
+      setTimeout(() => {
+        fetch(this.props.dataSource)
+          .then(response => response.json())
+          .then(data => this.setState({ data: data.slice(0, 3) }));
+      }, 1500);
+    }
+
+    render() {
+      const { dataSource, ...otherProps } = this.props;
+
+      return this.state.data.length < 1 ? (
+        <h1>LOADING</h1>
+      ) : (
+        <WrappedComponent data={this.state.data} {...otherProps} />
+      );
+    }
+  }
+
+  return WithData;
+};
 
 export default withData;
