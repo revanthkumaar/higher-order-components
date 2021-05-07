@@ -8,8 +8,8 @@ import UserList from './components/user-list/user-list.component';
 function App() {
   return (
     <div className="App">
-     <UserProfile name='revanth' email='revnahtada'/>
-     <UserList name='revanth' email='revnahtada'/>
+     <UserProfile />
+     <UserList/>
     </div>
   );
 }

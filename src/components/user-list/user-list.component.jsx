@@ -17,8 +17,7 @@ class UserList extends React.Component{
     render(){
         return(
             <div className='container'>
-            <h1>{this.props.name}</h1>
-            <h1>{this.props.email}</h1>
+         
 
             Posts: {
                     this.state.posts.map(post => <div className="post">
